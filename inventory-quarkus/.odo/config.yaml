@@ -1,0 +1,16 @@
+kind: LocalConfig
+apiversion: odo.openshift.io/v1alpha1
+ComponentSettings:
+  Type: java:11
+  SourceLocation: target/inventory-quarkus-1.0.0-SNAPSHOT-runner.jar
+  SourceType: binary
+  Ports:
+  - 8778/TCP
+  - 8080/TCP
+  - 8443/TCP
+  Application: coolstore
+  Project: my-project1
+  Name: inventory
+  Url:
+  - Name: inventory
+    Port: 8080

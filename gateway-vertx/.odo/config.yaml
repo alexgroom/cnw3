@@ -1,0 +1,16 @@
+kind: LocalConfig
+apiversion: odo.openshift.io/v1alpha1
+ComponentSettings:
+  Type: java:11
+  SourceLocation: target/gateway-1.0-SNAPSHOT.jar
+  SourceType: binary
+  Ports:
+  - 8443/TCP
+  - 8778/TCP
+  - 8080/TCP
+  Application: coolstore
+  Project: my-project1
+  Name: gateway
+  Url:
+  - Name: gateway
+    Port: 8080
