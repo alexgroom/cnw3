@@ -48,7 +48,8 @@ public class GatewayVerticle extends AbstractVerticle {
                 catalog = WebClient.create(vertx,
                     new WebClientOptions()
                         .setDefaultHost(catalogApiHost)
-                        .setDefaultPort(catalogApiPort));
+                        .setDefaultPort(catalogApiPort)
+                        .setConnectTimeout(20*1000)); //20 seconds
 
                 LOG.info("Catalog Service Endpoint: " + catalogApiHost + ":" + catalogApiPort.toString());
 
@@ -58,7 +59,8 @@ public class GatewayVerticle extends AbstractVerticle {
                 inventory = WebClient.create(vertx,
                     new WebClientOptions()
                         .setDefaultHost(inventoryApiHost)
-                        .setDefaultPort(inventoryApiPort));
+                        .setDefaultPort(inventoryApiPort)
+                        .setConnectTimeout(20*1000)); //20 seconds
 
                 LOG.info("Inventory Service Endpoint: " + inventoryApiHost + ":" + inventoryApiPort.toString());
 
@@ -96,7 +98,7 @@ public class GatewayVerticle extends AbstractVerticle {
             )
             .subscribe(
                 list -> rc.response().end(list.encodePrettily()),
-                error -> rc.response().setStatusCode(500).end(new JsonObject().put("error", error.getMessage()).toString())
+                error -> rc.response().setStatusCode(500).end(new JsonObject().put("Catalog products access error", error.getMessage()).toString())
             );
     }
 
