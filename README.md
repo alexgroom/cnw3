@@ -1,4 +1,4 @@
-# Cloud Native Roadshow Labs  [![Build Status](https://travis-ci.org/openshift-labs/cloud-native-labs.svg?branch=ocp-3.11)](https://travis-ci.org/openshift-labs/cloud-native-labs)
+# Serverless and Eventing demo  
 
 This is a demo app for Cloud Native applications using 
 Red Hat OpenShift Application Runtimes (Spring Boot, Quarkus, Eclipse Vert.x and Node.js) 
@@ -39,7 +39,8 @@ Node.js and AngularJS adopting the microservices architecture.
           |             |     |             |
           |   Catalog   |     |  Inventory  |
           |             |     |             |
-          | Spring Boot |     |WildFly Swarm|
+          | Spring Boot |     |Quarkus App. |
           |             |     |             |
           +-------------+     +-------------+
 ```
+Associated document is being prepared here (Red Hat internal only atm) https://docs.google.com/document/d/15PY3PdaEXavGPhF_6FIVOrQ2ccOrDtC06f6j0Wo1CyE/edit?usp=sharing
