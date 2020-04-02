@@ -3,5 +3,5 @@ module github.com/alexgroom/cnw3/event-display-go
 go 1.11
 
 require (
-  github.com/cloudevents/sdk-go/v1 v1
+  github.com/cloudevents/sdk-go/v1 v1.1.2
 )
