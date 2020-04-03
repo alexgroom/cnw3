@@ -1,6 +1,6 @@
 module event-display
 
-go 1.13
+go 1.11
 
 require (
 	contrib.go.opencensus.io/exporter/stackdriver v0.13.1 // indirect
