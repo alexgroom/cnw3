@@ -50,14 +50,19 @@ Data,
 */
 
 func display(event cloudevents.Event) {
+  // look for events that have a subject containing web- app name
+  // this assumes the web server has web in its title
   if strings.Contains(event.Subject(), "web-") {
-    fmt.Printf("web subject mentioned: %s\n", event.Subject())
-
+    // we are looking for a format of appname-revision.id to then use in an event Trigger
+    // there are longer events that we don't want which are in the form appname-revision-deployment-id
     if strings.Count(event.Subject(), "-") <3 {
-      fmt.Printf("Found subject: %s\n", event.Subject())
+      fmt.Printf("\nFound subject: %s\n", event.Subject())
+      fmt.Printf("☁️  cloudevents.Event\n%s", event.String())
     }
   }
-//	fmt.Printf("☁️  cloudevents.Event\n%s", event.String())
+  // leave this so we know we are recieving events
+  fmt.Printf(".");
+
 }
 
 func main() {
