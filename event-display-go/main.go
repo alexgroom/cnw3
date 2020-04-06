@@ -51,13 +51,13 @@ Data,
 
 func display(event cloudevents.Event) {
   if strings.Contains(event.Subject(), "web-") {
-    fmt.Printf("*** web subject: %s\n", event.Subject())
+    fmt.Printf("web subject mentioned: %s\n", event.Subject())
 
     if strings.Count(event.Subject(), "-") <3 {
-      fmt.Printf("********* subject: %s\n", event.Subject())
+      fmt.Printf("Found subject: %s\n", event.Subject())
     }
   }
-	fmt.Printf("☁️  cloudevents.Event\n%s", event.String())
+//	fmt.Printf("☁️  cloudevents.Event\n%s", event.String())
 }
 
 func main() {
