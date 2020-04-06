@@ -17,6 +17,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+  "strings"
 
 	cloudevents "github.com/cloudevents/sdk-go"
 	"knative.dev/eventing/pkg/kncloudevents"
@@ -49,6 +50,13 @@ Data,
 */
 
 func display(event cloudevents.Event) {
+  if strings.Contains(event.Subject(), "web-") {
+    fmt.Printf("*** web subject: %s\n", event.Subject())
+
+    if strings.Count(event.Subject(), "-") <3 {
+      fmt.Printf("********* subject: %s\n", event.Subject())
+    }
+  }
 	fmt.Printf("☁️  cloudevents.Event\n%s", event.String())
 }
 
