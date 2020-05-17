@@ -33,4 +33,22 @@ app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
 // Add a health check
 probe(app);
 
+// notify the event broker we have started
+if (COOLSTORE_CONFIG.COOLSTORE_BROKER_ENDPOINT != null)
+{
+    $http({
+        method: 'POST',
+        url: COOLSTORE_CONFIG.COOLSTORE_BROKER_ENDPOINT,
+        headers: {
+            "Ce-Id": "wakeup",
+            "Ce-Specversion": "0.3",
+            "Ce-Type": "web wakeup",
+            "Ce-Source": "web-coolstore",
+            "Content-Type": "application/json" },
+    }).then(function(resp) {
+        console.log("Broker " + COOLSTORE_CONFIG.COOLSTORE_BROKER_ENDPOINT + " Response: " + resp.data);
+    }, function(err) {
+        console.log("Failed to contact broker " + COOLSTORE_CONFIG.COOLSTORE_BROKER_ENDPOINT + " Error: " + err);
+    });
+}
 module.exports = app;

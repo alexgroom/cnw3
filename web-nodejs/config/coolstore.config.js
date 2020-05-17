@@ -17,4 +17,11 @@ if (process.env.SECURE_COOLSTORE_GW_ENDPOINT != null) {
     config.SECURE_API_ENDPOINT = process.env.SECURE_COOLSTORE_GW_SERVICE + '.' + process.env.OPENSHIFT_BUILD_NAMESPACE;
 }
 
+if (process.env.COOLSTORE_BROKER_ENDPOINT != null) {
+    config.BROKER_ENDPOINT = process.env.COOLSTORE_BROKER_ENDPOINT;
+} else 
+{
+    config.BROKER_ENDPOINT = null;
+}
+
 module.exports = config;
