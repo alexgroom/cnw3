@@ -34,12 +34,12 @@ app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
 probe(app);
 
 // notify the event broker we have started
-console.log("Checking for broker " + COOLSTORE_CONFIG.BROKER_ENDPOINT);
-if (COOLSTORE_CONFIG.BROKER_ENDPOINT != null)
+console.log("Checking for broker " + process.env.COOLSTORE_BROKER_ENDPOINT);
+if (process.env.COOLSTORE_BROKER_ENDPOINT != null)
 {
     $http({
         method: 'POST',
-        url: COOLSTORE_CONFIG.BROKER_ENDPOINT,
+        url: process.env.COOLSTORE_BROKER_ENDPOINT,
         headers: {
             "Ce-Id": "wakeup",
             "Ce-Specversion": "0.3",
@@ -47,9 +47,9 @@ if (COOLSTORE_CONFIG.BROKER_ENDPOINT != null)
             "Ce-Source": "web-coolstore",
             "Content-Type": "application/json" },
     }).then(function(resp) {
-        console.log("Broker " + COOLSTORE_CONFIG.BROKER_ENDPOINT + " Response: " + resp.data);
+        console.log("Broker " + process.env.COOLSTORE_BROKER_ENDPOINT + " Response: " + resp.data);
     }, function(err) {
-        console.log("Failed to contact broker " + COOLSTORE_CONFIG.BROKER_ENDPOINT + " Error: " + err);
+        console.log("Failed to contact broker " + process.env.COOLSTORE_BROKER_ENDPOINT + " Error: " + err);
     });
 }
 module.exports = app;
