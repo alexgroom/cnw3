@@ -34,6 +34,7 @@ app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
 probe(app);
 
 // notify the event broker we have started
+console.log("Checking for broker " + COOLSTORE_CONFIG.BROKER_ENDPOINT);
 if (COOLSTORE_CONFIG.BROKER_ENDPOINT != null)
 {
     $http({
