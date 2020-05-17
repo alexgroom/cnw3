@@ -7,6 +7,7 @@ const app = express();
 
 const cors = require('cors');
 const probe = require('kube-probe');
+const http = require('http')
 
 // Environment Variables
 const gulp = require('gulp'); // Load gulp
@@ -37,19 +38,28 @@ probe(app);
 console.log("Checking for broker " + process.env.COOLSTORE_BROKER_ENDPOINT);
 if (process.env.COOLSTORE_BROKER_ENDPOINT != null)
 {
-    $http({
+    const options = {
+        hostname: process.env.COOLSTORE_BROKER_ENDPOINT,
         method: 'POST',
-        url: process.env.COOLSTORE_BROKER_ENDPOINT,
         headers: {
-            "Ce-Id": "wakeup",
-            "Ce-Specversion": "0.3",
-            "Ce-Type": "web wakeup",
-            "Ce-Source": "web-coolstore",
-            "Content-Type": "application/json" },
-    }).then(function(resp) {
-        console.log("Broker " + process.env.COOLSTORE_BROKER_ENDPOINT + " Response: " + resp.data);
-    }, function(err) {
-        console.log("Failed to contact broker " + process.env.COOLSTORE_BROKER_ENDPOINT + " Error: " + err);
-    });
+          'Content-Length': 0,
+          "Ce-Id": "wakeup",
+          "Ce-Specversion": "0.3",
+          "Ce-Type": "web wakeup",
+          "Ce-Source": "web-coolstore",
+          "Content-Type": "application/json" },
+      }
+      
+      const req = https.request(options, res => {
+        console.log(`Broker response statusCode: ${res.statusCode}`)      
+      })
+      
+      req.on('error', error => {
+        console.log("Failed to contact broker " + process.env.COOLSTORE_BROKER_ENDPOINT + " Error: " + error);
+      })
+      
+      req.write("")
+      req.end()
+
 }
 module.exports = app;
