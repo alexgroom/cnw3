@@ -50,7 +50,7 @@ if (process.env.COOLSTORE_BROKER_ENDPOINT != null)
           "Content-Type": "application/json" },
       }
       
-      const req = https.request(options, res => {
+      const req = http.request(options, res => {
         console.log(`Broker response statusCode: ${res.statusCode}`)      
       })
       
