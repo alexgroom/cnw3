@@ -9,6 +9,35 @@ const cors = require('cors');
 const probe = require('kube-probe');
 const http = require('http')
 
+// notify the event broker we have started
+console.log("Checking for broker " + process.env.COOLSTORE_BROKER_ENDPOINT);
+if (process.env.COOLSTORE_BROKER_ENDPOINT != null)
+{
+    const options = {
+        hostname: process.env.COOLSTORE_BROKER_ENDPOINT,
+        method: 'POST',
+        headers: {
+          'Content-Length': 0,
+          "Ce-Id": "wakeup",
+          "Ce-Specversion": "1.0",
+          "Ce-Type": "web-wakeup",
+          "Ce-Source": "web-coolstore",
+          "Content-Type": "application/json" },
+      }
+      
+      const req = http.request(options, res => {
+        console.log(`Broker response statusCode: ${res.statusCode}`)      
+      })
+      
+      req.on('error', error => {
+        console.log("Failed to contact broker " + process.env.COOLSTORE_BROKER_ENDPOINT + " Error: " + error);
+      })
+      
+      req.write("")
+      req.end()
+
+}
+
 // Environment Variables
 const gulp = require('gulp'); // Load gulp
 const gulpfile = require('./gulpfile'); // Loads our config task
@@ -34,32 +63,5 @@ app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
 // Add a health check
 probe(app);
 
-// notify the event broker we have started
-console.log("Checking for broker " + process.env.COOLSTORE_BROKER_ENDPOINT);
-if (process.env.COOLSTORE_BROKER_ENDPOINT != null)
-{
-    const options = {
-        hostname: process.env.COOLSTORE_BROKER_ENDPOINT,
-        method: 'POST',
-        headers: {
-          'Content-Length': 0,
-          "Ce-Id": "wakeup",
-          "Ce-Specversion": "0.3",
-          "Ce-Type": "web wakeup",
-          "Ce-Source": "web-coolstore",
-          "Content-Type": "application/json" },
-      }
-      
-      const req = http.request(options, res => {
-        console.log(`Broker response statusCode: ${res.statusCode}`)      
-      })
-      
-      req.on('error', error => {
-        console.log("Failed to contact broker " + process.env.COOLSTORE_BROKER_ENDPOINT + " Error: " + error);
-      })
-      
-      req.write("")
-      req.end()
 
-}
 module.exports = app;
