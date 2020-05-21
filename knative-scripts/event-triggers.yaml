@@ -1,98 +1,30 @@
 apiVersion: eventing.knative.dev/v1alpha1
 kind: Trigger
 metadata:
-  name: testevents-trigger1
-  namespace: my-project1
+ name: testevents-trigger2
+ namespace: my-project1
 spec:
-  subscriber:
-    ref:
-      apiVersion: serving.knative.dev/v1
-      kind: Service
-      name: all-event-display
-
----
-
-apiVersion: eventing.knative.dev/v1alpha1
-kind: Trigger
-metadata:
-  name: testevents-trigger2
-  namespace: my-project1
-spec:
-  filter:
-    attributes:
-      type: dev.knative.apiserver.resource.update
-      subject: /apis/v1/namespaces/my-project1/events/web-nkd4x.1601f9b4e14cf91f
-  subscriber:
-    ref:
-      apiVersion: serving.knative.dev/v1
-      kind: Service
-      name: inventory
-
+ filter:
+   attributes:
+     type: web-wakeup
+ subscriber:
+   ref:
+     apiVersion: serving.knative.dev/v1
+     kind: Service
+     name: inventory
+ 
 ---
 apiVersion: eventing.knative.dev/v1alpha1
 kind: Trigger
 metadata:
-  name: testevents-trigger3
-  namespace: my-project1
+ name: testevents-trigger3
+ namespace: my-project1
 spec:
-  filter:
-    attributes:
-      type: dev.knative.apiserver.resource.update
-      subject: /apis/v1/namespaces/my-project1/events/web-nkd4x.1601f9b4e14cf91f
-  subscriber:
-    ref:
-      apiVersion: serving.knative.dev/v1
-      kind: Service
-      name: catalog
-
----
-
-apiVersion: eventing.knative.dev/v1alpha1
-kind: Trigger
-metadata:
-  name: testevents-trigger4
-  namespace: my-project1
-spec:
-  filter:
-    attributes:
-      type: dev.knative.apiserver.resource.update
-      subject: /apis/v1/namespaces/my-project1/events/web-nkd4x.1601f9b4e14cf91f
-  subscriber:
-    ref:
-      apiVersion: serving.knative.dev/v1
-      kind: Service
-      name: event-display
-
----
-
-# This is a very simple Knative Service that writes the input request to its log.
-
-apiVersion: serving.knative.dev/v1
-kind: Service
-metadata:
-  name: event-display
-  namespace: my-project1 
-spec:
-  template:
-    spec:
-      containers:
-        - # This corresponds to
-          # https://github.com/knative/eventing-contrib/tree/master/cmd/event_display/main.go
-          image: gcr.io/knative-releases/knative.dev/eventing-contrib/cmd/event_display
-
----
-
-# This is a very simple Knative Service that writes the input request to its log.
-
-apiVersion: serving.knative.dev/v1
-kind: Service
-metadata:
-  name: all-event-display
-  namespace: my-project1 
-spec:
-  template:
-    spec:
-      containers:
-        - # This corresponds to
-          # https://github.com/knative/eventing-contrib/tree/master/cmd/event_display/main.go
-          image: gcr.io/knative-releases/knative.dev/eventing-contrib/cmd/event_display
+ filter:
+   attributes:
+     type: web-wakeup
+ subscriber:
+   ref:
+     apiVersion: serving.knative.dev/v1
+     kind: Service
+     name: catalog
