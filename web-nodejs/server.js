@@ -10,11 +10,10 @@ const probe = require('kube-probe');
 const http = require('http')
 
 // notify the event broker we have started
-console.log("Checking for broker " + process.env.COOLSTORE_BROKER_ENDPOINT);
-if (process.env.COOLSTORE_BROKER_ENDPOINT != null)
+console.log("Checking for broker " + process.env.K_SINK);
+if (process.env.K_SINK != null)
 {
     const options = {
-        hostname: process.env.COOLSTORE_BROKER_ENDPOINT,
         method: 'POST',
         headers: {
           'Content-Length': 0,
@@ -25,12 +24,12 @@ if (process.env.COOLSTORE_BROKER_ENDPOINT != null)
           "Content-Type": "application/json" },
       }
       
-      const req = http.request(options, res => {
+      const req = http.request(process.env.K_SINK, options, res => {
         console.log(`Broker response statusCode: ${res.statusCode}`)      
       })
       
       req.on('error', error => {
-        console.log("Failed to contact broker " + process.env.COOLSTORE_BROKER_ENDPOINT + " Error: " + error);
+        console.log("Failed to contact broker " + process.env.K_SINK + " Error: " + error);
       })
       
       req.write("")
