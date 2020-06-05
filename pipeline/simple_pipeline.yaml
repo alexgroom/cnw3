@@ -1,0 +1,102 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  generation: 7
+  name: build-all
+  namespace: my-project1
+spec:
+  params:
+    - default: web
+      name: WEB_APP_NAME
+      type: string
+    - default: gateway
+      name: GATEWAY_APP_NAME
+      type: string
+  resources:
+    - name: coolstore
+      type: git
+    - name: web-image
+      type: image
+    - name: gateway-image
+      type: image
+    - name: catalog-image
+      type: image
+    - name: inventory-image
+      type: image
+  tasks:
+    - name: web-build
+      params:
+        - name: VERSION
+          value: '10'
+        - name: PATH_CONTEXT
+          value: web-nodejs
+        - name: TLSVERIFY
+          value: 'false'
+      resources:
+        inputs:
+          - name: source
+            resource: coolstore
+        outputs:
+          - name: image
+            resource: web-image
+      taskRef:
+        kind: ClusterTask
+        name: s2i-nodejs
+    - name: web-deploy
+      params:
+        - name: SCRIPT
+          value: kubectl $@
+        - name: ARGS
+          value:
+            - rollout
+            - status
+            - deploy/$(params.WEB_APP_NAME)
+      resources:
+        inputs:
+          - name: source
+            resource: coolstore
+      runAfter:
+        - web-build
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: gateway-build
+      params:
+        - name: PATH_CONTEXT
+          value: gateway-vertx
+        - name: TLSVERIFY
+          value: 'false'
+        - name: MAVEN_ARGS_APPEND
+          value: ' '
+        - name: MAVEN_CLEAR_REPO
+          value: 'false'
+        - name: MAVEN_MIRROR_URL
+          value: ' '
+      resources:
+        inputs:
+          - name: source
+            resource: coolstore
+        outputs:
+          - name: image
+            resource: gateway-image
+      taskRef:
+        kind: ClusterTask
+        name: s2i-java-11
+    - name: gateway-deploy
+      params:
+        - name: SCRIPT
+          value: kubectl $@
+        - name: ARGS
+          value:
+            - rollout
+            - status
+            - deploy/$(params.GATEWAY_APP_NAME)
+      resources:
+        inputs:
+          - name: source
+            resource: coolstore
+      runAfter:
+        - gateway-build
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
