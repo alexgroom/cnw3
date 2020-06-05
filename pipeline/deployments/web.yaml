@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: web
-          image: event
+          image: image-registry.openshift-image-registry.svc:5000/my-project1/web
           ports:
             - name: http-server
               containerPort: 8080
@@ -31,17 +31,17 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: loyalty-event-service
+  name: web
   labels:
-    app: loyalty-event-service
+    app: web
 spec:
   ports:
-  - port: 9080
-    targetPort: 9080
+  - port: 8080
+    targetPort: 8080
   selector:
-    app: loyalty-event-service
+    app: web
 ---
-apiVersion: v1
+apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   name: web
