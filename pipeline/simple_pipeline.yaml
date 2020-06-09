@@ -15,6 +15,9 @@ spec:
     - default: catalog
       name: CATALOG_APP_NAME
       type: string
+    - default: inventory
+      name: INVENTORY_APP_NAME
+      type: string
   resources:
     - name: coolstore
       type: git
