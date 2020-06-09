@@ -1,0 +1,51 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: catalog
+  namespace: my-project1
+  labels:
+    app: catalog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: catalog
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: catalog
+    spec:
+      containers:
+        - name: catalog
+          image: image-registry.openshift-image-registry.svc:5000/my-project1/catalog
+          ports:
+            - name: http-server
+              containerPort: 8080
+              protocol: TCP
+          resources: {}
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalog
+  labels:
+    app: catalog
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: catalog
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: catalog
+spec:
+  to:
+    kind: Service
+    name: catalog
