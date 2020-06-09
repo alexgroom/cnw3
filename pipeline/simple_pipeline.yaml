@@ -106,7 +106,7 @@ spec:
     - name: catalog-build
       params:
         - name: PATH_CONTEXT
-          value: catalog-springboot
+          value: catalog-spring-boot
         - name: TLSVERIFY
           value: 'false'
         - name: MAVEN_ARGS_APPEND
@@ -140,6 +140,46 @@ spec:
             resource: coolstore
       runAfter:
         - catalog-build
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: inventory-build
+      params:
+        - name: PATH_CONTEXT
+          value: inventory-quarkus
+        - name: TLSVERIFY
+          value: 'false'
+        - name: MAVEN_ARGS_APPEND
+          value: ' '
+        - name: MAVEN_CLEAR_REPO
+          value: 'false'
+        - name: MAVEN_MIRROR_URL
+          value: ' '
+      resources:
+        inputs:
+          - name: source
+            resource: coolstore
+        outputs:
+          - name: image
+            resource: inventory-image
+      taskRef:
+        kind: ClusterTask
+        name: s2i-java-11
+    - name: inventory-deploy
+      params:
+        - name: SCRIPT
+          value: kubectl $@
+        - name: ARGS
+          value:
+            - rollout
+            - status
+            - deploy/$(params.INVENTORY_APP_NAME)
+      resources:
+        inputs:
+          - name: source
+            resource: coolstore
+      runAfter:
+        - inventory-build
       taskRef:
         kind: ClusterTask
         name: openshift-client
