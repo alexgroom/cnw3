@@ -1,7 +1,7 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: web
+  name: gateway
   namespace: my-project1
   labels:
     app: gateway
@@ -17,7 +17,7 @@ spec:
         app: gateway
     spec:
       containers:
-        - name: web
+        - name: gateway
           image: image-registry.openshift-image-registry.svc:5000/my-project1/gateway
           ports:
             - name: http-server
