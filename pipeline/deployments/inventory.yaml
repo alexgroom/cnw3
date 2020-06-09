@@ -1,0 +1,51 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: inventory
+  namespace: my-project1
+  labels:
+    app: inventory
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inventory
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: inventory
+    spec:
+      containers:
+        - name: inventory
+          image: image-registry.openshift-image-registry.svc:5000/my-project1/inventory
+          ports:
+            - name: http-server
+              containerPort: 8080
+              protocol: TCP
+          resources: {}
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: inventory
+  labels:
+    app: inventory
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: inventory
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: inventory
+spec:
+  to:
+    kind: Service
+    name: inventory
