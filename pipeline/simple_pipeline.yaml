@@ -12,6 +12,9 @@ spec:
     - default: gateway
       name: GATEWAY_APP_NAME
       type: string
+    - default: catalog
+      name: CATALOG_APP_NAME
+      type: string
   resources:
     - name: coolstore
       type: git
@@ -97,6 +100,46 @@ spec:
             resource: coolstore
       runAfter:
         - gateway-build
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: catalog-build
+      params:
+        - name: PATH_CONTEXT
+          value: catalog-springboot
+        - name: TLSVERIFY
+          value: 'false'
+        - name: MAVEN_ARGS_APPEND
+          value: ' '
+        - name: MAVEN_CLEAR_REPO
+          value: 'false'
+        - name: MAVEN_MIRROR_URL
+          value: ' '
+      resources:
+        inputs:
+          - name: source
+            resource: coolstore
+        outputs:
+          - name: image
+            resource: catalog-image
+      taskRef:
+        kind: ClusterTask
+        name: s2i-java-11
+    - name: catalog-deploy
+      params:
+        - name: SCRIPT
+          value: kubectl $@
+        - name: ARGS
+          value:
+            - rollout
+            - status
+            - deploy/$(params.CATALOG_APP_NAME)
+      resources:
+        inputs:
+          - name: source
+            resource: coolstore
+      runAfter:
+        - catalog-build
       taskRef:
         kind: ClusterTask
         name: openshift-client
