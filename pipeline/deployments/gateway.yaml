@@ -15,6 +15,12 @@ spec:
       creationTimestamp: null
       labels:
         app: gateway
+        app.kubernetes.io/component: gateway
+        app.kubernetes.io/instance: gateway 
+        app.kubernetes.io/name: java 
+        app.kubernetes.io/part-of: coolstore 
+        app.openshift.io/runtime: java 
+        app.openshift.io/runtime-version: 11     
     spec:
       containers:
         - name: gateway
