@@ -2,7 +2,6 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: web
-  namespace: my-project1
   labels:
     app: web
 spec:
