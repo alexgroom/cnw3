@@ -3,7 +3,6 @@ kind: Pipeline
 metadata:
   generation: 7
   name: build-all
-  namespace: my-project1
 spec:
   params:
     - default: web
