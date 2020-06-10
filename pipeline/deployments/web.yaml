@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: web
-          image: image-registry.openshift-image-registry.svc:5000/my-project1/web
+          image: web
           ports:
             - name: http-server
               containerPort: 8080
