@@ -19,11 +19,11 @@ spec:
         app.kubernetes.io/name: java 
         app.kubernetes.io/part-of: coolstore 
         app.openshift.io/runtime: java 
-        app.openshift.io/runtime-version: 11     
+        app.openshift.io/runtime-version: '11'     
     spec:
       containers:
         - name: inventory
-          image: image-registry.openshift-image-registry.svc:5000/my-project1/inventory
+          image: inventory
           ports:
             - name: http-server
               containerPort: 8080
