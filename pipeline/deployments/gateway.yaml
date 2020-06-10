@@ -2,7 +2,6 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: gateway
-  namespace: my-project1
   labels:
     app: gateway
 spec:
