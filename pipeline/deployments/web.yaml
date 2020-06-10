@@ -15,6 +15,12 @@ spec:
       creationTimestamp: null
       labels:
         app: web
+        app.kubernetes.io/component: web 
+        app.kubernetes.io/instance: web 
+        app.kubernetes.io/name: nodejs 
+        app.kubernetes.io/part-of: coolstore 
+        app.openshift.io/runtime: nodejs 
+        app.openshift.io/runtime-version: 10-SCL 
     spec:
       containers:
         - name: web
