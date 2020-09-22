@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.redhat.cloudnative</groupId>
-  <artifactId>inventory-quarkus</artifactId>
+  <artifactId>inventory</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <properties>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -60,6 +60,34 @@
   </dependencies>
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.eclipse.jkube</groupId>
+        <artifactId>openshift-maven-plugin</artifactId>
+        <version>1.0.0</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+          <uberJar>true</uberJar>
+          <resources>
+              <labels>
+                  <all>
+                      <property>
+                          <name>app</name>
+                          <value>inventory</value>
+                      </property>
+                      <property>
+                          <name> app.kubernetes.io/part-of</name>
+                          <value>coolstore</value>
+                      </property>
+                      <property>
+                          <name>app.openshift.io/runtime</name>
+                          <value>java</value>
+                      </property>
+                  </all>
+              </labels>
+          </resources>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-maven-plugin</artifactId>
