@@ -35,11 +35,11 @@ namespace gateway.Controllers
             }
             catch(Exception e)
             {
-                Console.WriteLine("Using ENV COMPONENT_CATALOG_HOST " + Environment.GetEnvironmentVariable("COMPONENT_CATALOG_HOST"));
-                Console.WriteLine("Using ENV COMPONENT_CATALOG_PORT " + Environment.GetEnvironmentVariable("COMPONENT_CATALOG_PORT"));
-                Console.WriteLine("Using ENV COMPONENT_INVENTORY_HOST " + Environment.GetEnvironmentVariable("COMPONENT_INVENTORY_HOST"));
-                Console.WriteLine("Using ENV COMPONENT_INVENTORY_PORT " + Environment.GetEnvironmentVariable("COMPONENT_INVENTORY_PORT"));
-                Console.WriteLine("Failure to parse: " + e.Message);
+                Console.WriteLine("Checking ENV COMPONENT_CATALOG_HOST=" + Environment.GetEnvironmentVariable("COMPONENT_CATALOG_HOST"));
+                Console.WriteLine("Checking ENV COMPONENT_CATALOG_PORT=" + Environment.GetEnvironmentVariable("COMPONENT_CATALOG_PORT"));
+                Console.WriteLine("Checking ENV COMPONENT_INVENTORY_HOST=" + Environment.GetEnvironmentVariable("COMPONENT_INVENTORY_HOST"));
+                Console.WriteLine("Checking ENV COMPONENT_INVENTORY_PORT=" + Environment.GetEnvironmentVariable("COMPONENT_INVENTORY_PORT"));
+                Console.WriteLine("Failure to build location URLs for Catalog and Inventory services: " + e.Message);
                 throw e;
             }
         }
@@ -74,9 +74,9 @@ namespace gateway.Controllers
             catch(Exception e)
             {
                 Console.WriteLine("Using Catalog service: " + catalogApiHost + " and Inventory service: " + inventoryApiHost);
-                Console.WriteLine("Failure to get data: " + e.Message);
+                Console.WriteLine("Failure to get service data: " + e.Message);
                 // on failures return error
-                return null;
+                throw e;
             }
         }
 
