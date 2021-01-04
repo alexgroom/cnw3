@@ -18,18 +18,30 @@ namespace gateway.Controllers
         private static String inventoryApiHost;
         public static void Config()
         {
-            // discover the URL of the services we are going to call
-            catalogApiHost = "http://" + 
-                Environment.GetEnvironmentVariable("COMPONENT_CATALOG_HOST") + ":" +
-                Environment.GetEnvironmentVariable("COMPONENT_CATALOG_PORT");
-            
-            inventoryApiHost = "http://" +
-                Environment.GetEnvironmentVariable("COMPONENT_INVENTORY_HOST") + ":" +
-                Environment.GetEnvironmentVariable("COMPONENT_INVENTORY_PORT");
+            try
+            {
+                // discover the URL of the services we are going to call
+                catalogApiHost = "http://" + 
+                    Environment.GetEnvironmentVariable("COMPONENT_CATALOG_HOST") + ":" +
+                    Environment.GetEnvironmentVariable("COMPONENT_CATALOG_PORT");
+                
+                inventoryApiHost = "http://" +
+                    Environment.GetEnvironmentVariable("COMPONENT_INVENTORY_HOST") + ":" +
+                    Environment.GetEnvironmentVariable("COMPONENT_INVENTORY_PORT");
 
-            // set up the Http conection pools
-            inventoryHttpClient.BaseAddress = new Uri(inventoryApiHost);
-            catalogHttpClient.BaseAddress = new Uri(catalogApiHost);
+                // set up the Http conection pools
+                inventoryHttpClient.BaseAddress = new Uri(inventoryApiHost);
+                catalogHttpClient.BaseAddress = new Uri(catalogApiHost);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Using ENV COMPONENT_CATALOG_HOST " + Environment.GetEnvironmentVariable("COMPONENT_CATALOG_HOST"));
+                Console.WriteLine("Using ENV COMPONENT_CATALOG_PORT " + Environment.GetEnvironmentVariable("COMPONENT_CATALOG_PORT"));
+                Console.WriteLine("Using ENV COMPONENT_INVENTORY_HOST " + Environment.GetEnvironmentVariable("COMPONENT_INVENTORY_HOST"));
+                Console.WriteLine("Using ENV COMPONENT_INVENTORY_PORT " + Environment.GetEnvironmentVariable("COMPONENT_INVENTORY_PORT"));
+                Console.WriteLine("Failure to parse: " + e.Message);
+                throw e;
+            }
         }
 
         
