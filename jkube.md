@@ -32,8 +32,8 @@ In the most complex example we see the use of injecting labels and environment v
                 <artifactId>openshift-maven-plugin</artifactId>
                 <version>1.0.0</version>
                 <configuration>
-                <source>1.8</source>
-                <target>1.8</target>
+                <source>11</source>
+                <target>11</target>
                 <resources>
                     <labels>
                         <all>
