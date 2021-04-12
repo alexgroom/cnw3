@@ -9,7 +9,7 @@ const cors = require('cors');
 const probe = require('kube-probe');
 const http = require('http')
 
-console.log("Checking latest version");
+console.log("Checking latest version 1");
 
 sendEvent();
 
@@ -34,10 +34,10 @@ app.use(function(err, req, res, next) {
 app.use('/', function(req, res, next)
 {
   sendEvent();
-  express.static(path.join(__dirname, 'views'));
+//  express.static(path.join(__dirname, 'views'));
   next();
 })
-//app.use('/', express.static(path.join(__dirname, 'views')));
+app.use('/', express.static(path.join(__dirname, 'views')));
 app.use('/app', express.static(path.join(__dirname, 'app')));
 app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
 
