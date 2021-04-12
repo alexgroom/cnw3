@@ -29,12 +29,13 @@ app.use(function(err, req, res, next) {
     res.status(500).send('Something bad happened!');
 });
 
-app.use('/index.html', function(req, res, next)
+app.use('/', function(req, res, next)
 {
   sendEvent();
-  next()
+  express.static(path.join(__dirname, 'views'));
+  next();
 })
-app.use('/', express.static(path.join(__dirname, 'views')));
+//app.use('/', express.static(path.join(__dirname, 'views')));
 app.use('/app', express.static(path.join(__dirname, 'app')));
 app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
 
