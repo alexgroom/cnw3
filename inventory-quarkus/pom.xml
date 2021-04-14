@@ -119,6 +119,9 @@
   <profiles>
     <profile>
       <id>native</id>
+        <properties>
+            <quarkus.native.additional-build-args>-Dquarkus.native.container-build=true</quarkus.native.additional-build-args>
+        </properties>    
       <activation>
         <property>
           <name>native</name>
