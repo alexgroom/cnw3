@@ -18,7 +18,7 @@ import (
 	"fmt"
 	"log"
   "strings"
-  "http"
+  "net/http"
 
 	cloudevents "github.com/cloudevents/sdk-go"
 	"knative.dev/eventing/pkg/kncloudevents"
@@ -75,7 +75,7 @@ func display(event cloudevents.Event) {
 
 func sendEvent() {
 
-  req, err := http.NewRequest("POST", "http://broker-ingress.knative-eventing.svc.cluster.local/agcoolserve3/default", nill)
+  req, err := http.NewRequest("POST", "http://broker-ingress.knative-eventing.svc.cluster.local/agcoolserve3/default", nil)
   if err != nil {
     // handle err
     fmt.Printf("Error with request %s\n", err);
