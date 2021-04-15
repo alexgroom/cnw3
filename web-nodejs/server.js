@@ -9,7 +9,7 @@ const cors = require('cors');
 const probe = require('kube-probe');
 const http = require('http')
 
-console.log("Checking latest version 1");
+console.log("Checking latest version 2");
 
 sendEvent();
 
@@ -31,12 +31,12 @@ app.use(function(err, req, res, next) {
     res.status(500).send('Something bad happened!');
 });
 
-app.use('/', function(req, res, next)
-{
-  sendEvent();
-//  express.static(path.join(__dirname, 'views'));
-  next();
-})
+// attempt to send event for each web request
+//app.use('/', function(req, res, next)
+//{
+//  sendEvent();
+//  next();
+//})
 app.use('/', express.static(path.join(__dirname, 'views')));
 app.use('/app', express.static(path.join(__dirname, 'app')));
 app.use('/node_modules', express.static(path.join(__dirname, 'node_modules')));
