@@ -19,6 +19,7 @@ import (
 	"log"
   "strings"
   "net/http"
+  "os"
 
 	cloudevents "github.com/cloudevents/sdk-go"
 	"knative.dev/eventing/pkg/kncloudevents"
@@ -50,10 +51,14 @@ Data,
   }
 */
 
+var sink string
+var search string
+
+
 func display(event cloudevents.Event) {
   // look for events that have a subject containing web- app name
   // this assumes the web server has web in its title
-  if strings.Contains(event.Subject(), "web-") {
+  if strings.Contains(event.Subject(), search) {
     // we are looking for a format of appname-revision.id to then use in an event Trigger
     // there are longer events that we don't want which are in the form appname-revision-deployment-id
     if strings.Count(event.Subject(), "-") <3 {
@@ -61,10 +66,9 @@ func display(event cloudevents.Event) {
       fmt.Printf("☁️  cloudevents.Event\n%s", event.String())
       sendEvent()
     }
+    // leave this so we know we are recieving events
+    fmt.Printf(".");
   }
-  // leave this so we know we are recieving events
-  fmt.Printf(".");
-
 }
 
 
@@ -75,7 +79,7 @@ func display(event cloudevents.Event) {
 
 func sendEvent() {
 
-  req, err := http.NewRequest("POST", "http://broker-ingress.knative-eventing.svc.cluster.local/agcoolserve3/default", nil)
+  req, err := http.NewRequest("POST", sink, nil)
   if err != nil {
     // handle err
     fmt.Printf("Error with request %s\n", err);
@@ -96,6 +100,19 @@ func sendEvent() {
 }
 
 func main() {
+
+  // check environment for config
+  sink = os.Getenv("K_SINK")
+  if (sink != ""){
+    sink = "http://broker-ingress.knative-eventing.svc.cluster.local/agcoolserve3/default"
+  }
+  search = os.Getenv("SEARCH")
+  if (search != ""){
+    search = "web-"
+  }
+  fmt.Printf("Found env K_SINK %s\n", sink);
+  fmt.Printf("Found env SEARCH %s\n", search);
+
 	c, err := kncloudevents.NewDefaultClient()
 	if err != nil {
 		log.Fatal("Failed to create client, ", err)
