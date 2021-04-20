@@ -104,19 +104,11 @@ func main() {
 
   // check environment for config
   sink = os.Getenv("K_SINK")
-  if (sink != ""){
-    sink = "http://broker-ingress.knative-eventing.svc.cluster.local/agcoolserve3/default"
-  }
   
   item = os.Getenv("ITEM")
-  if (search != ""){
-    search = "web-"
-  }
 
   search = os.Getenv("SEARCH")
-  if (search != ""){
-    search = "Created pod:"
-  }
+
   fmt.Printf("Found env K_SINK %s\n", sink);
   fmt.Printf("Found env SEARCH %s\n", search);
   fmt.Printf("Found env ITEM %s\n", item);
