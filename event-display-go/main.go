@@ -21,7 +21,8 @@ import (
   "net/http"
   "os"
 
-	cloudevents "github.com/cloudevents/sdk-go/v2"
+  cloudevents "github.com/cloudevents/sdk-go"
+ 	"knative.dev/eventing/pkg/kncloudevents"
 )
 
 /*
@@ -52,16 +53,17 @@ Data,
 
 var sink string
 var search string
+var item string
 
 
 func display(event cloudevents.Event) {
   // look for events that have a subject containing web- app name
   // this assumes the web server has web in its title
-  if strings.Contains(event.Subject(), search) {
+  if strings.Contains(event.Subject(), item) {
     // we are looking for a format of appname-revision.id to then use in an event Trigger
     // there are longer events that we don't want which are in the form appname-revision-deployment-id
-    if strings.Count(event.Subject(), "-") <3 {
-      fmt.Printf("\nFound subject: %s\n", event.Subject())
+    // now search the whole string for a meaningful activity like "Created pod:"
+    if strings.Contains(event.String(), search) {
       fmt.Printf("☁️  cloudevents.Event\n%s", event.String())
       sendEvent()
     }
@@ -105,14 +107,20 @@ func main() {
   if (sink != ""){
     sink = "http://broker-ingress.knative-eventing.svc.cluster.local/agcoolserve3/default"
   }
-  search = os.Getenv("SEARCH")
+  
+  item = os.Getenv("ITEM")
   if (search != ""){
     search = "web-"
+  }
+
+  search = os.Getenv("SEARCH")
+  if (search != ""){
+    search = "Created pod:"
   }
   fmt.Printf("Found env K_SINK %s\n", sink);
   fmt.Printf("Found env SEARCH %s\n", search);
 
-	c, err := cloudevents.NewDefaultClient()
+	c, err := kncloudevents.NewDefaultClient()
 	if err != nil {
 		log.Fatal("Failed to create client, ", err)
 	}
