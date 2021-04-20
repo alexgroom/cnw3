@@ -119,6 +119,7 @@ func main() {
   }
   fmt.Printf("Found env K_SINK %s\n", sink);
   fmt.Printf("Found env SEARCH %s\n", search);
+  fmt.Printf("Found env ITEM %s\n", item);
 
 	c, err := kncloudevents.NewDefaultClient()
 	if err != nil {
