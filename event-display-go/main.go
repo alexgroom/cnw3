@@ -21,8 +21,7 @@ import (
   "net/http"
   "os"
 
-	cloudevents "github.com/cloudevents/sdk-go"
-	"knative.dev/eventing/pkg/kncloudevents"
+	cloudevents "github.com/cloudevents/sdk-go/v2"
 )
 
 /*
@@ -113,7 +112,7 @@ func main() {
   fmt.Printf("Found env K_SINK %s\n", sink);
   fmt.Printf("Found env SEARCH %s\n", search);
 
-	c, err := kncloudevents.NewDefaultClient()
+	c, err := cloudevents.NewDefaultClient()
 	if err != nil {
 		log.Fatal("Failed to create client, ", err)
 	}

@@ -6,6 +6,7 @@ require (
 	contrib.go.opencensus.io/exporter/stackdriver v0.13.1 // indirect
 	contrib.go.opencensus.io/exporter/zipkin v0.1.1 // indirect
 	github.com/cloudevents/sdk-go v1.1.2
+	github.com/cloudevents/sdk-go/v2 v2.4.1
 	go.opencensus.io v0.22.3 // indirect
 	k8s.io/api v0.18.0 // indirect
 	knative.dev/eventing v0.13.5
