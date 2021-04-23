@@ -1,8 +1,7 @@
 package com.redhat.cloudnative;
 
-import io.quarkus.test.junit.SubstrateTest;
+import io.quarkus.test.junit.QuarkusTest;
 
-@SubstrateTest
 public class NativeInventoryResourceIT extends InventoryResourceTest {
 
     // Execute the same tests but in native mode.

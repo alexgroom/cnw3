@@ -75,6 +75,33 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>org.eclipse.jkube</groupId>
+        <artifactId>openshift-maven-plugin</artifactId>
+        <version>1.0.0</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+          <resources>
+              <labels>
+                  <all>
+                      <property>
+                          <name>app</name>
+                          <value>catalog</value>
+                      </property>
+                      <property>
+                          <name> app.kubernetes.io/part-of</name>
+                          <value>coolstore</value>
+                      </property>
+                      <property>
+                          <name>app.openshift.io/runtime</name>
+                          <value>java</value>
+                      </property>
+                  </all>
+              </labels>
+          </resources>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.6.1</version>
@@ -96,59 +123,6 @@
         </executions>
         <configuration>
           <jvmArguments>-Djava.net.preferIPv4Stack=true -Dserver.port=9000 -Dspring.cloud.kubernetes.enabled=false</jvmArguments>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>io.fabric8</groupId>
-        <artifactId>fabric8-maven-plugin</artifactId>
-        <version>${fabric8.maven.plugin.version}</version>
-        <executions>
-          <execution>
-            <phase>install</phase>
-            <goals>
-              <goal>resource</goal>
-              <goal>build</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <resources>
-              <labels>
-                  <all>
-                      <property>
-                          <name>app</name>
-                          <value>catalog</value>
-                      </property>
-                      <property>
-                          <name>app.kubernetes.io/instance</name>
-                          <value>catalog</value>
-                      </property>
-                      <property>
-                          <name> app.kubernetes.io/part-of</name>
-                          <value>coolstore</value>
-                      </property>
-                      <property>
-                          <name>app.kubernetes.io/name</name>
-                          <value>java</value>
-                      </property>
-                  </all>
-              </labels>
-          </resources>
-          <enricher>
-            <excludes>
-              <exclude>f8-healthcheck-spring-boot</exclude>
-            </excludes>
-          </enricher>
-          <generator>
-            <includes>
-              <include>spring-boot</include>
-            </includes>
-            <config>
-              <spring-boot>
-                <from>registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:1.4</from>
-              </spring-boot>
-            </config>
-          </generator>
         </configuration>
       </plugin>
     </plugins>

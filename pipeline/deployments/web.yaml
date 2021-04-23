@@ -28,9 +28,6 @@ spec:
             - name: http-server
               containerPort: 8080
               protocol: TCP
-          env:    
-            - name: COOLSTORE_GW_ENDPOINT
-              value: http://gateway-my-project1.apps.cluster-XXXX.XXXX.example.opentlc.com/
           resources: {}
           imagePullPolicy: Always
       restartPolicy: Always
