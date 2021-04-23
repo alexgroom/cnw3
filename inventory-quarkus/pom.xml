@@ -96,6 +96,7 @@
               </all>
             </labels>
           </resources>
+            <quarkus.package.type>uber-jar</quarkus.package.type>
         </configuration>
       </plugin>
       <plugin>
