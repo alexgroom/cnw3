@@ -14,19 +14,42 @@ angular.module("app")
 //    console.log("baseUrl: " + baseUrl);
 
 	factory.getProducts = function() {
+
+        function get(fsuccess, ferror)
+        {
+            $http(
+                {
+                method: 'GET',
+                url: baseUrl
+                }
+                ).then(fsuccess, 
+                    function(err) 
+                    {
+                    // force a retry once, mainly due to Chrome timeouts on web requests
+                    $http({
+                        method: 'GET',
+                        url: baseUrl
+                    }).then(fsuccess, function(err) 
+                    {
+                        ferror;
+                    });
+            });
+        }
+
 		var deferred = $q.defer();
         if (products) {
             deferred.resolve(products);
-        } else {
-            $http({
-                method: 'GET',
-								url: baseUrl
-            }).then(function(resp) {
-                products = resp.data;
-                deferred.resolve(resp.data);
-            }, function(err) {
-                deferred.reject(err);
-            });
+        } 
+        else 
+        {
+            get(function(resp) 
+                    {
+                    products = resp.data;
+                    deferred.resolve(resp.data);
+                    }, 
+                function(err) {
+                    deferred.reject(err);
+                });
         }
 	   return deferred.promise;
 	};
