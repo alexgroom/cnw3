@@ -9,8 +9,6 @@ const cors = require('cors');
 const probe = require('kube-probe');
 const http = require('http')
 
-console.log("Checking latest version 2");
-
 sendEvent();
 
 // Environment Variables
