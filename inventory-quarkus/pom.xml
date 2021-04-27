@@ -103,8 +103,8 @@
         <artifactId>quarkus-maven-plugin</artifactId>
         <version>${quarkus-plugin.version}</version>
         <configuration>
-             <uberJar>true</uberJar>
-         </configuration>
+             <uberJar>true</uberJar> 
+         </configuration> 
           <executions>
           <execution>
             <goals>
@@ -142,6 +142,9 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-maven-plugin</artifactId>
             <version>${quarkus-plugin.version}</version>
+            <configuration>
+              <uberJar>false</uberJar> 
+            </configuration> 
             <executions>
               <execution>
                 <goals>
@@ -173,10 +176,6 @@
           </plugin>
         </plugins>
       </build>
-      <properties>
-        <quarkus.native.container-build>true</quarkus.native.container-build>
-        <quarkus.package.type>native</quarkus.package.type>
-      </properties>
     </profile>
   </profiles>
 </project>
