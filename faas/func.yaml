@@ -1,0 +1,12 @@
+name: faas
+namespace: agcoolserve3
+runtime: go
+image: quay.io/agroom/coolstorefaas:latest
+imageDigest: sha256:b4aa1da4c4115c27dc4a3ba5719956b19b90c5d16fb53e9ee12a37c3faec059a
+trigger: events
+builder: default
+builderMap:
+  default: quay.io/boson/faas-go-builder:latest
+envVars:
+  ITEM: web-
+  SEARCH: 'Created pod:'
