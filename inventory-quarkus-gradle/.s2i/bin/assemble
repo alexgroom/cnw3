@@ -24,10 +24,10 @@ fi
   mkdir -p build/libs
   if [ "$BUILD_TYPE" == "jar" ]; then
    echo "Building jar"
-   gradle quarkusBuild -Dquarkus.package.type=uber-jar
+   ./gradlew quarkusBuild -Dquarkus.package.type=uber-jar
   else
     echo "Building native "
-    gradle build -Dquarkus.package.type=native
+    ./gradlew build -Dquarkus.package.type=native
   fi
 
 
