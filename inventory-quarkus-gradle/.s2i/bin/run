@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ "$BUILD_TYPE" == "jar" ]; then
+   echo "running jar"
+   java -jar /deployment/application.jar
+else
+    echo "running native"
+    exec /deployment/application -Dquarkus.http.host=0.0.0.0 -Dvertx.cacheDirBase=/tmp
+fi
+
