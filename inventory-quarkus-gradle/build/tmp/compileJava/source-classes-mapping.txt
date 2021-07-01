@@ -1,4 +1,0 @@
-com/redhat/cloudnative/InventoryResource.java
- com.redhat.cloudnative.InventoryResource
-com/redhat/cloudnative/Inventory.java
- com.redhat.cloudnative.Inventory
