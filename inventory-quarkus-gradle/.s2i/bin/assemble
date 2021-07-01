@@ -44,13 +44,12 @@ else
 
 fi
 
+ mkdir -p /deployment
+ chmod +x /deployment
  if [ "$BUILD_TYPE" == "jar" ]; then
-   cp -v ${BUILD_DIR}/*-runner.jar ${QUARKUS_HOME}/application.jar
-   chmod +x ${QUARKUS_HOME}
-   chmod +x ${QUARKUS_HOME}/application.jar
-
+   cp -v ${BUILD_DIR}/*-runner.jar /deployment/application.jar
+   chmod +x /deployment/application.jar
 else
-     cp -v ${BUILD_DIR}/*-runner ${QUARKUS_HOME}/application
-     chmod +x ${QUARKUS_HOME}
-     chmod +x ${QUARKUS_HOME}/application
+     cp -v ${BUILD_DIR}/*-runner /deployment/application
+     chmod +x /deployment/application
 fi
