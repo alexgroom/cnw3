@@ -47,11 +47,8 @@ fi
 pwd
 whoami
 ls -la
-ls -la /
-echo $DEPLOYMENTS_DIR
-echo "====ENV=="
-env
-echo "========="
+ls -la /home/quarkus
+chmod o+wx /home/quarkus
  mkdir -p /tmp/deployments
  if [ "$BUILD_TYPE" == "jar" ]; then
    cp -v ${BUILD_DIR}/*-runner.jar /tmp/deployments/application.jar
