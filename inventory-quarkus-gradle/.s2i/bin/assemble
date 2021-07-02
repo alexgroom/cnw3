@@ -44,12 +44,9 @@ else
 
 fi
 
-pwd
-whoami
-ls -la
-ls -la /home/quarkus
 chmod go+rx /home/quarkus
  mkdir -p /tmp/deployments
+ 
  if [ "$BUILD_TYPE" == "jar" ]; then
    cp -v ${BUILD_DIR}/*-runner.jar /tmp/deployments/application.jar
    chmod +x /tmp/deployments/application.jar
