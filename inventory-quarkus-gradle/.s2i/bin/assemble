@@ -27,7 +27,7 @@ fi
    ./gradlew quarkusBuild -Dquarkus.package.type=uber-jar
   else
     echo "Building native "
-    ./gradlew buildNative -Dquarkus.package.type=native -Dquarkus.native.container-build=true
+    ./gradlew build -x test -Dquarkus.package.type=native -Dquarkus.native.container-build=true
   fi
 
 
