@@ -2,9 +2,9 @@
 
 if [ "$BUILD_TYPE" == "jar" ]; then
    echo "running jar"
-   java -jar /deployments/application.jar
+   java -jar /tmp/deployments/application.jar
 else
     echo "running native"
-    exec /deployments/application -Dquarkus.http.host=0.0.0.0 -Dvertx.cacheDirBase=/tmp
+    exec /tmp/deployments/application -Dquarkus.http.host=0.0.0.0 -Dvertx.cacheDirBase=/tmp
 fi
 
