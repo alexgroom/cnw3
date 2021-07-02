@@ -46,9 +46,9 @@ fi
 
  mkdir -p /deployments
  if [ "$BUILD_TYPE" == "jar" ]; then
-   cp -v ${BUILD_DIR}/*-runner.jar /deployment/application.jar
+   cp -v ${BUILD_DIR}/*-runner.jar /deployments/application.jar
    chmod +x /deployments/application.jar
 else
-     cp -v ${BUILD_DIR}/*-runner /deployment/application
+     cp -v ${BUILD_DIR}/*-runner /deployments/application
      chmod +x /deployments/application
 fi
