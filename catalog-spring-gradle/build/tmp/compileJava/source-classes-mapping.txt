@@ -1,0 +1,8 @@
+com/redhat/cloudnative/catalog/ProductRepository.java
+ com.redhat.cloudnative.catalog.ProductRepository
+com/redhat/cloudnative/catalog/Product.java
+ com.redhat.cloudnative.catalog.Product
+com/redhat/cloudnative/catalog/CatalogApplication.java
+ com.redhat.cloudnative.catalog.CatalogApplication
+com/redhat/cloudnative/catalog/CatalogController.java
+ com.redhat.cloudnative.catalog.CatalogController
