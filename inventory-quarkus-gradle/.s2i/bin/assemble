@@ -44,6 +44,14 @@ else
 
 fi
 
+pwd
+whoami
+ls -la
+ls -la /
+echo $DEPLOYMENTS_DIR
+echo "====ENV=="
+env
+echo "========="
  mkdir -p /deployments
  if [ "$BUILD_TYPE" == "jar" ]; then
    cp -v ${BUILD_DIR}/*-runner.jar /deployments/application.jar
