@@ -52,11 +52,11 @@ echo $DEPLOYMENTS_DIR
 echo "====ENV=="
 env
 echo "========="
- mkdir -p /deployments
+ mkdir -p /tmp/deployments
  if [ "$BUILD_TYPE" == "jar" ]; then
-   cp -v ${BUILD_DIR}/*-runner.jar /deployments/application.jar
-   chmod +x /deployments/application.jar
+   cp -v ${BUILD_DIR}/*-runner.jar /tmp/deployments/application.jar
+   chmod +x /tmp/deployments/application.jar
 else
-     cp -v ${BUILD_DIR}/*-runner /deployments/application
-     chmod +x /deployments/application
+     cp -v ${BUILD_DIR}/*-runner /tmp/deployments/application
+     chmod +x /tmp/deployments/application
 fi
