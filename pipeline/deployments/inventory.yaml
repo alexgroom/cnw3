@@ -4,6 +4,12 @@ metadata:
   name: inventory
   labels:
     app: inventory
+    app.kubernetes.io/component: inventory
+    app.kubernetes.io/instance: inventory 
+    app.kubernetes.io/name: java 
+    app.kubernetes.io/part-of: coolstore 
+    app.openshift.io/runtime: java 
+    app.openshift.io/runtime-version: '11'     
 spec:
   replicas: 1
   selector:
