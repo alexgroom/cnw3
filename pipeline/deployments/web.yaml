@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: web
-          image: web
+          image: quay.io/agroom/coolstore-web:latest
           ports:
             - name: http-server
               containerPort: 8080
