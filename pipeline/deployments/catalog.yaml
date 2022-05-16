@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: catalog
-          image: catalog
+          image: quay.io/agroom/coolstore-catalog
           ports:
             - name: http-server
               containerPort: 8080
