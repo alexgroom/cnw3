@@ -6,10 +6,11 @@ angular.module("app")
 	var factory = {}, products, baseUrl;
 
 	if ($location.protocol() === 'https') {
-		baseUrl = (COOLSTORE_CONFIG.SECURE_API_ENDPOINT.startsWith("https://") ? COOLSTORE_CONFIG.SECURE_API_ENDPOINT : "https://" + COOLSTORE_CONFIG.SECURE_API_ENDPOINT + '.' + $location.host().replace(/^.*?\.(.*)/g,"$1")) + '/api/products';
+		baseUrl = (COOLSTORE_CONFIG.SECURE_API_ENDPOINT.startsWith("https://") ? COOLSTORE_CONFIG.SECURE_API_ENDPOINT : "https://" + $location.host().replace(COOLSTORE_CONFIG.MY_SERVICE, COOLSTORE_CONFIG.SECURE_API_ENDPOINT)) + '/api/products';
 	} else {
-		baseUrl = (COOLSTORE_CONFIG.API_ENDPOINT.startsWith("http://") ? COOLSTORE_CONFIG.API_ENDPOINT : "http://" + COOLSTORE_CONFIG.API_ENDPOINT + '.' + $location.host().replace(/^.*?\.(.*)/g,"$1")) + '/api/products';
+		baseUrl = (COOLSTORE_CONFIG.API_ENDPOINT.startsWith("http://") ? COOLSTORE_CONFIG.API_ENDPOINT : "http://" + $location.host().replace(COOLSTORE_CONFIG.MY_SERVICE, COOLSTORE_CONFIG.API_ENDPOINT)) + '/api/products';
 	}
+
 
 //    console.log("baseUrl: " + baseUrl);
 
