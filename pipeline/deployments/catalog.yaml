@@ -4,17 +4,17 @@ metadata:
   name: catalog
   labels:
     app: catalog
+    app.kubernetes.io/component: catalog
+    app.kubernetes.io/instance: catalog 
+    app.kubernetes.io/name: java 
+    app.kubernetes.io/part-of: coolstore 
+    app.openshift.io/runtime: java 
+    app.openshift.io/runtime-version: '11'     
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: catalog
-      app.kubernetes.io/component: catalog
-      app.kubernetes.io/instance: catalog 
-      app.kubernetes.io/name: java 
-      app.kubernetes.io/part-of: coolstore 
-      app.openshift.io/runtime: java 
-      app.openshift.io/runtime-version: '11'     
   template:
     metadata:
       creationTimestamp: null
