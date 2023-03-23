@@ -40,7 +40,7 @@ namespace gateway.Controllers
                 Console.WriteLine("Checking ENV COMPONENT_INVENTORY_HOST=" + Environment.GetEnvironmentVariable("COMPONENT_INVENTORY_HOST"));
                 Console.WriteLine("Checking ENV COMPONENT_INVENTORY_PORT=" + Environment.GetEnvironmentVariable("COMPONENT_INVENTORY_PORT"));
                 Console.WriteLine("Failure to build location URLs for Catalog and Inventory services: " + e.Message);
-                throw e;
+                throw;
             }
         }
 
@@ -76,7 +76,7 @@ namespace gateway.Controllers
                 Console.WriteLine("Using Catalog service: " + catalogApiHost + " and Inventory service: " + inventoryApiHost);
                 Console.WriteLine("Failure to get service data: " + e.Message);
                 // on failures return error
-                throw e;
+                throw;
             }
         }
 
