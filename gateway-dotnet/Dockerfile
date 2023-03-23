@@ -1,16 +1,16 @@
-FROM registry.redhat.io/ubi8/dotnet-31-runtime AS build
-# This image provides a .NET Core 3.1 environment you can use to run your .NET
+FROM registry.redhat.io/ubi8/dotnet-60-runtime AS build
+# This image provides a .NET Core 6.0 environment you can use to run your .NET
 # applications.
 
 ENV PATH=/opt/app-root/src/.local/bin:/opt/app-root/src/bin:/opt/app-root/node_modules/.bin:/opt/app-root/.dotnet/tools/:${PATH} 
 
-LABEL io.k8s.description="Platform for building and running .NET Core 3.1 applications" \
-      io.openshift.tags="builder,.net,dotnet,dotnetcore,dotnet-31"
+LABEL io.k8s.description="Platform for building and running .NET Core 6.0 applications" \
+      io.openshift.tags="builder,.net,dotnet,dotnetcore,dotnet-60"
 
 # Labels consumed by Red Hat build service
-LABEL name="ubi8/dotnet-31" \
-      com.redhat.component="dotnet-31-container" \
-      version="3.1" \
+LABEL name="ubi8/dotnet-60" \
+      com.redhat.component="dotnet-60-container" \
+      version="6.0" \
       release="1" \
       architecture="x86_64"
 
@@ -21,7 +21,7 @@ LABEL com.redhat.dev-mode="DEV_MODE:false" \
 # Switch to root for package installs
 USER 0
 
-RUN INSTALL_PKGS="npm nodejs-nodemon dotnet-sdk-3.1 rsync procps-ng findutils" && \
+RUN INSTALL_PKGS="npm nodejs-nodemon dotnet-sdk-60 rsync procps-ng findutils" && \
     yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
     yum clean all -y && \

@@ -2,7 +2,7 @@
 .NET Core Gateway Service
 ===
 ## Introduction
-This microservice has been converted from the original Vert.x implementation and now targets .NET Core 3.1
+This microservice has been converted from the original Vert.x implementation and now targets .NET Core 6.0
 
 ![](https://raw.githubusercontent.com/alexgroom/cnw3/master/gateway-dotnet/wwwroot/240px-NET_Core_Logo.png)
 
@@ -32,7 +32,7 @@ There is test page displayed on the base URL.
 ## Build and Deploy from CLI
 
 ```
-oc new-app dotnet:3.1~https://github.com/alexgroom/cnw3.git \
+oc new-app dotnet:6.0~https://github.com/alexgroom/cnw3.git \
   --context-dir=gateway-dotnet --name=gateway \
   --as-deployment-config\
   -l app.openshift.io/runtime=dotnet \
