@@ -6,17 +6,17 @@
   <artifactId>inventory</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <properties>
-    <surefire-plugin.version>2.22.1</surefire-plugin.version>
-    <maven.compiler.target>11</maven.compiler.target>
-    <quarkus.platform.version>1.10.5.Final</quarkus.platform.version>
-    <maven.compiler.source>11</maven.compiler.source>
+    <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>  
+    <compiler-plugin.version>3.10.1</compiler-plugin.version>
+    <maven.compiler.release>11</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <maven.compiler.parameters>true</maven.compiler.parameters>
-    <quarkus-plugin.version>1.10.5.Final</quarkus-plugin.version>
-    <compiler-plugin.version>3.8.1</compiler-plugin.version>
-    <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>  </properties>
+    <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
+    <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
+    <quarkus.platform.version>2.16.5.Final</quarkus.platform.version>
+    <skipITs>true</skipITs>
+    <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
+    </properties>
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -63,17 +63,31 @@
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-smallrye-metrics</artifactId>
     </dependency>  
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-openshift</artifactId>
+    </dependency>  
   </dependencies>
   <build>
     <plugins>
       <plugin>
         <groupId>org.eclipse.jkube</groupId>
         <artifactId>openshift-maven-plugin</artifactId>
-        <version>1.0.0</version>
-        <configuration>
+        <version>1.11.0</version>
+        <configuration combine.self="override">
           <source>11</source>
           <target>11</target>
-          <resources>
+          <enricher>
+            <includes>
+            <include>jkube-openshift-deploymentconfig</include>
+            </includes>          
+            <config>
+              <jkube-openshift-deploymentconfig>
+                <jkube.build.switchToDeployment>true</jkube.build.switchToDeployment>
+              </jkube-openshift-deploymentconfig>
+            </config>
+          </enricher>
+            <resources>
               <labels>
                   <all>
                       <property>
@@ -86,7 +100,7 @@
                       </property>
                       <property>
                           <name>app.openshift.io/runtime</name>
-                          <value>java</value>
+                          <value>quarkus</value>
                       </property>
                   </all>
               </labels>
@@ -96,7 +110,7 @@
       <plugin>
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-maven-plugin</artifactId>
-        <version>${quarkus-plugin.version}</version>
+        <version>${quarkus.platform.version}</version>
         <executions>
             <execution>
             <goals>
@@ -123,15 +137,17 @@
   <profiles>
     <profile>
       <id>native</id>
-      <properties>
-       <quarkus.native.container-build>true</quarkus.native.container-build>  
-       <quarkus.package.type>native</quarkus.package.type>
-      </properties> 
+      
       <activation>
         <property>
           <name>native</name>
         </property>
       </activation>
+      <properties>
+        <skipITs>false</skipITs>
+        <quarkus.package.type>native</quarkus.package.type>
+        <quarkus.native.container-build>true</quarkus.native.container-build>  
+      </properties>
       <build>
         <plugins>
           <plugin>
