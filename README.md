@@ -29,7 +29,7 @@ Node.js and AngularJS adopting the microservices architecture.
                     |             |
                     | API Gateway |
                     |             |
-                    |   Vert.x    |
+                    |   .NET.     |
                     |             |
                     +------+------+
                           |
