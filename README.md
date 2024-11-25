@@ -34,7 +34,7 @@ Node.js and AngularJS adopting the microservices architecture.
                     +------+------+
                           |
                 +---------+---------+
-                v                   v
+                v                    v
           +------+------+     +------+------+
           |             |     |             |
           |   Catalog   |     |  Inventory  |
